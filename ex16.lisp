@@ -1,7 +1,6 @@
 (defpackage ch16
   (:shadow length member count nth assoc))
-(in-package :ch16)
-(load "util.lisp")
+(in-package ch16)
 
 ;;; EX 16.1
 (defun length (l)
