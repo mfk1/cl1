@@ -1,7 +1,7 @@
 (load "util")
 (defpackage set
 	    (:shadow lisp:set lisp:union lisp:first lisp:rest lisp:intersection lisp:complement lisp:subsetp lisp:equal)
-	    (:export set makeset first rest insert empty intersection complement subsetp equal)
+	    (:export setp set makeset first rest insert empty intersection complement subsetp equal)
 	    (:import-from util bag element))
 (in-package set)
 
