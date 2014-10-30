@@ -1,3 +1,4 @@
+(load "util.lisp")
 (defpackage ch16
   (:shadow length member count nth assoc))
 (in-package ch16)
@@ -61,7 +62,7 @@
   (check-type n integer)
   (check-type l list)
   (cond ((null l) nil)
-	((= n 0) (rest l))
+	((= n 1) (rest l))
 	(t (allbut (1- n) (rest l)))))
 
 ;;; EX 16.14
