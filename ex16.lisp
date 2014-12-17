@@ -16,7 +16,7 @@
   (check-type l list)
   (cond ((null l) nil)
 	((eql obj (first l)) l)
-	(t (member (rest l)))))
+	(t (member obj (rest l)))))
 
 ;;; EX 16.6
 (defun before (e1 e2 l)
