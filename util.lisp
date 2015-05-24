@@ -1,8 +1,9 @@
-(defpackage util)
-(in-package :util)
+(defpackage util
+  (:export elementp))
+(in-package util)
 
+;;; Exercise 13.12
 (defun elementp (o)
-       "Returns T if O is an element(al object), which is a lisp object that is testable with eql. By definition these are: symbols, characters, numbers and packages"
-       (or (symbolp o) (characterp o) (numberp o) (packagep o)))
-
-(export 'elementp)
+  "Takes any Lisp object and returns True if it is testable with eql;
+those objects are symbols, numbers, characters and packages; returns NIL otherwise"
+  (or (symbolp o) (numberp o) (characterp o) (packagep o)))
