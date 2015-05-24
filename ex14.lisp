@@ -1,36 +1,40 @@
-(defpackage ch14)
-(in-package ch14)
+;;; Exercise 14.2
+(defun 14_2 (x y)
+  "Returns 9.999.999.999 if y=0, else it returns x/y."
+  (if (= y 0) 9999999999
+    (/ x y)))
 
-;;; EX 14.2
+;;; Exercise 14.3
+(defun absval (n)
+  "Takes a number and returns its absolute value."
+  (if (< n 0)
+      (- n)
+      n))
 
-(defun div (x y)
-  "Returns x/y if y != 0 and 9999999999 otherwise"
-  (if (not (zerop y))
-      (/ x y)
-      9999999999))
+;;; Exercise 14.4
+(defun sign (n)
+  "Takes a number n and returns
+- for n < 0
+0 for n = 0
++ for n > 0"
+  (if (< n 0)
+      '-
+      (if (= n 0)
+	  0
+	  '>)))
 
-;;; EX 14.3
+;;; Exercise 14.5
+(defun sign1 (n)
+  "Takes a number n and returns
+- for n < 0
+0 for n = 0
++ for n > 0"
+  (cond ((< n 0) '-)
+	((= n 0) 0)
+	(t '+)))
 
-(defun absval (x)
-  (if (< x 0) (- x)
-      x))
-
-;;; EX 14.4 - sign (x) using if
-
-(defun sign (x)
-  (if (< x 0) '-
-      (if (> x 0) '+
-	  '0)))
-
-;;; EX 14.5 sign (x) using cond
-
-(defun sign1 (x)
-  (cond ((< x 0) '-)
-	((> x 0) '+)
-	(t '0)))
-
-;;; EX 14.6 absval (x) using cond
-
-(defun absval1 (x)
-  (cond ((< x 0) (- x))
-	(t x)))
+;;; Exercise 14.6
+(defun absval1 (n)
+  "Takes a number and returns its absolute value."
+  (cond ((< n 0) (- n))
+	(t n)))
