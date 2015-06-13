@@ -23,3 +23,21 @@
 	   (string= (symbol-name s) "?")))
 ;;; other solution (replaces the if expression):
 ;;; (and (symbolp s) (string= (symbol-name s) "?"))
+
+;;;Exercise 17.29
+(defun boundpvsubs (v al)
+  "Returns True if the variable v is bound to anything in the association list AL; NIL otherwise."
+  (check-type v (satisfies match::variablep))
+  (check-type al list)
+  (if (assoc v al) t
+  nil))
+
+;;; Exercise 17.30
+(defun boundtovsubs (v al)
+  "Takes a variable V (recognized by VARIABLEP) and a substitution SUBS; returns the term that the variable V is bound to in SUBS (if it is); NIL otherwise."
+  (check-type v (satisfies match::variablep))
+  (check-type al list)
+  (cond ((null al) nil)
+	((member v (first al)) (first al))
+	(t (boundtovsubs v (rest al)))))
+
