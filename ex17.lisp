@@ -1,83 +1,83 @@
-(load "util.lisp")
+(load "util")
+(load "set")
 (defpackage ch17
-  (:shadow copy identity append reverse)
+  (:shadow identity append reverse)
   (:import-from util element))
-(in-package :ch17)
+(in-package ch17)
 
-;;; Exercise 17.01
+;;; Exercise 17.1
 (defun copy (l)
-  "Returns a copy of the list L"
+  "Returns the copy of a given list L."
   (check-type l list)
   (if (null l) '()
     (cons (first l) (copy (rest l)))))
 
-;;; Exercise 17.03
-(defun identity (obj)
-  "Returns its argument unmodified"
-  obj)
+;;; Exercise 17.3
+(defun identity (object)
+  "Returns its argument unmodified."
+  object)
 
-;;; Exercise 17.04
+;;; Exercise 17.4
 (defun append (l1 l2)
-  "Returns a list consisting of the members of l1 followed by the members of l2"
-  (assert (listp l1) (l1)
-	  "L1 must be a list, instead it's ~S" l1)
-  (assert (listp l2) (l2)
-	  "L2 must be a list, instead it's ~s" l2)
+  "Takes two lists L1, L2 and returns a new list consisting of the members of L1 followed by the members of L2."
+  (check-type l1 list)
+  (check-type l2 list)
   (if (null l1) l2
     (cons (first l1) (append (rest l1) l2))))
 
-;;;Exercise 17.05
+;;; Exercise17.5
 (defun firstn (n l)
-  "Returns a list consisting of the first n members of the given list L"
-  (check-type n integer)
-  (assert (and (listp l) (>= (length l) n)) (l)
-	  "L must be a list which must be at least n members long" l)
+  "Returns a list whose members are the first n members of a given list L."
+  (assert
+   (and (integerp n) (<= n (length l)))
+   (n)
+   "N must be an integer >= (length l); instead it is ~S" n)
+  (check-type l list)
   (if (zerop n) '()
     (cons (first l) (firstn (1- n) (rest l)))))
 
-;;;Exercise 17.09 part 1
+;;; Exercise 17.9
 (defun reverse (l)
-  "Returns a copy of the list L1 with the order of its members reversed"
+  "Returns a copy of a given list L with its members reversed."
   (check-type l list)
   (if (null l) '()
     (append (reverse (rest l)) (list (first l)))))
 
-;;; Exercise 17.09 part 2
 (defun reverse2 (l1 l2)
-  "Returns a list consisting of the members of L1 in reversed order followed by the members of L2 in original order"
+  "Takes two lists L1, L2; returns a list consisting of the members of L1 in reversed order, followed by L2."
   (check-type l1 list)
   (check-type l2 list)
   (if (null l1) l2
     (reverse2 (rest l1) (cons (first l1) l2))))
 
 (defun reverse1 (l)
-  "Returns a copy of L1 with the order of its members reversed"
-  (check-type l list)
+  "Returns a copy of a given list L with its members reversed."
   (reverse2 l '()))
 
-;;;Exercise 17.10
+;;; Exercise 17.10
 (defun sub-first (new old l)
-  "Returns a copy of L with the element new replacing the first occurence of the element old"
+  "Returns a copy of the list L with the element NEW replacing the first occurence of the element OLD."
   (check-type new element)
   (check-type old element)
   (check-type l list)
   (cond ((null l) '())
-	((eql old (first l)) (cons new (rest l)))
+	((eql (first l) old) (cons new (rest l)))
 	(t (cons (first l) (sub-first new old (rest l))))))
 
-;;;Exercise 17.12
+;;; Exercise 17.12
 (defun subst* (new old l)
-  "Returns a copy of L with all occurences of OLD relpaced by NEW"
-  (check-type new (satisfies util:elementp))
-  (check-type old (satisfies util:elementp))
+  "Returns a copy of the list L with the element NEW replacing all occurences of the element OLD."
+  (check-type new element)
+  (check-type old element)
+  (check-type l list)
   (cond ((null l) '())
-	((eql old (first l)) (cons new (subst* new old (rest l))))
+	((eql (first l) old) (cons new (subst* new old (rest l))))
 	(t (cons (first l) (subst* new old (rest l))))))
 
 ;;;Exercise 17.28
 (defun xprod (s1 s2)
-  (check-type s1 (satisfies set:setp))
-  (check-type s2 (satisfies set:setp))
+  (check-type s1 (satisfies set::setp))
+  (check-type s2 (satisfies set::setp))
   (cons :set (xprodh (rest s1) (rest s2))))
 
 (defun xprodh (s1 s2)
@@ -87,3 +87,4 @@
 (defun xprod1 (e s)
   (cond ((null s) '())
 	(t (cons (list e (first s)) (xprod1 e (rest s))))))
+
